@@ -1,8 +1,8 @@
-package com.example.demo.controllers;
+package com.example.demo.controller;
 
-import com.example.demo.controllers.requests.SignRequest;
-import com.example.demo.controllers.responses.JwtAuthenticationResponse;
-import com.example.demo.services.AuthenticationService;
+import com.example.demo.domain.dto.request.SignRequest;
+import com.example.demo.domain.dto.response.JwtAuthenticationResponse;
+import com.example.demo.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

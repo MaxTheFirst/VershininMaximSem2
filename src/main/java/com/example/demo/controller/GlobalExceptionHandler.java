@@ -1,7 +1,7 @@
-package com.example.demo.controllers;
+package com.example.demo.controller;
 
-import com.example.demo.exceptions.UserAlreadyExistsException;
-import com.example.demo.exceptions.UsernameNotFoundException;
+import com.example.demo.exception.UserAlreadyExistsException;
+import com.example.demo.exception.UsernameNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

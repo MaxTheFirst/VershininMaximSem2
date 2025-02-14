@@ -1,12 +1,11 @@
-package com.example.demo.services;
+package com.example.demo.service;
 
-import com.example.demo.exceptions.UserAlreadyExistsException;
-import com.example.demo.exceptions.UsernameNotFoundException;
-import com.example.demo.models.User;
-import com.example.demo.repositories.UserRepository;
+import com.example.demo.exception.UserAlreadyExistsException;
+import com.example.demo.exception.UsernameNotFoundException;
+import com.example.demo.domain.dto.model.User;
+import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 

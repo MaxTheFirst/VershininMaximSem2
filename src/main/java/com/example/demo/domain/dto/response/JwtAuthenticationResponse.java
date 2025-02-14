@@ -1,4 +1,4 @@
-package com.example.demo.controllers.responses;
+package com.example.demo.domain.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,13 +1,17 @@
-package com.example.demo.models;
+package com.example.demo.domain.dto.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user_website_status")
-@Data
 public class UserWebsiteStatus {
 
   @Id
@@ -16,11 +20,11 @@ public class UserWebsiteStatus {
   @Column(name = "user_website_status_id")
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "website_id", nullable = false)
   private Website website;
 

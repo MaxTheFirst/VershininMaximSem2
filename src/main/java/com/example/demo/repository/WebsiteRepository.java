@@ -1,7 +1,7 @@
-package com.example.demo.repositories;
+package com.example.demo.repository;
 
-import com.example.demo.models.User;
-import com.example.demo.models.Website;
+import com.example.demo.domain.dto.model.User;
+import com.example.demo.domain.dto.model.Website;
 
 import java.util.Set;
 

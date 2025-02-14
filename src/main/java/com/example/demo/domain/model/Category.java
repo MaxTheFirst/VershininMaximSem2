@@ -1,14 +1,18 @@
-package com.example.demo.models;
+package com.example.demo.domain.dto.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "categories")
-@Data
 public class Category {
 
   @Id
@@ -20,7 +24,7 @@ public class Category {
   @Column(name = "name", nullable = false, unique = true)
   private String name;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
       name = "user_categories",
       joinColumns = @JoinColumn(name = "category_id"),
@@ -28,7 +32,7 @@ public class Category {
   )
   private Set<User> users = new HashSet<>();
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "owner_id")
   private User owner;
 }

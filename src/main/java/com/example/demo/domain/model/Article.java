@@ -1,13 +1,17 @@
-package com.example.demo.models;
+package com.example.demo.domain.dto.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "articles")
-@Data
 public class Article {
 
   @Id
@@ -28,11 +32,11 @@ public class Article {
   @Column(nullable = false, unique = true)
   private String url;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "website_id", nullable = false) // Статья принадлежит сайту
   private Website website;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id", nullable = false) // Статья привязана к категории
   private Category category;
 }

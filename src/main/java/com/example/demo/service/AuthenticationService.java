@@ -1,7 +1,7 @@
-package com.example.demo.services;
+package com.example.demo.service;
 
-import com.example.demo.controllers.requests.SignRequest;
-import com.example.demo.models.User;
+import com.example.demo.domain.dto.request.SignRequest;
+import com.example.demo.domain.dto.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
