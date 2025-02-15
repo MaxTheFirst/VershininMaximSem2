@@ -5,24 +5,26 @@ import com.example.demo.domain.dto.response.JwtAuthenticationResponse;
 import com.example.demo.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
   private final AuthenticationService authenticationService;
 
   @PostMapping("/sign-up")
-  public JwtAuthenticationResponse signUp(@RequestBody @Valid SignRequest request) {
-    return new JwtAuthenticationResponse(authenticationService.signUp(request));
+  public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody @Valid SignRequest request) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(authenticationService.signUp(request));
   }
 
   @PostMapping("/sign-in")
-  public JwtAuthenticationResponse signIn(@RequestBody @Valid SignRequest request) {
-    return new JwtAuthenticationResponse(authenticationService.signIn(request));
+  public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody @Valid SignRequest request) {
+    return ResponseEntity.ok(authenticationService.signIn(request));
   }
 }

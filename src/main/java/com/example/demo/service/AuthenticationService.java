@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.dto.request.SignRequest;
 import com.example.demo.domain.dto.model.User;
+import com.example.demo.domain.dto.response.JwtAuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,7 +17,7 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManager authenticationManager;
 
-  public String signUp(SignRequest request) {
+  public JwtAuthenticationResponse signUp(SignRequest request) {
 
     var user = User.builder()
         .username(request.getUsername())
@@ -25,10 +26,12 @@ public class AuthenticationService {
 
     userService.create(user);
 
-    return jwtService.generateToken(user);
+    return JwtAuthenticationResponse.builder().token(
+        jwtService.generateToken(user)
+    ).build();
   }
 
-  public String signIn(SignRequest request) {
+  public JwtAuthenticationResponse signIn(SignRequest request) {
     authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
         request.getUsername(),
         request.getPassword()
@@ -38,6 +41,8 @@ public class AuthenticationService {
         .userDetailsService()
         .loadUserByUsername(request.getUsername());
 
-    return jwtService.generateToken(user);
+    return JwtAuthenticationResponse.builder().token(
+        jwtService.generateToken(user)
+    ).build();
   }
 }
