@@ -1,11 +1,9 @@
 package com.example.demo.repository;
 
-import com.example.demo.domain.dto.model.Article;
-import com.example.demo.domain.dto.model.User;
+import com.example.demo.domain.model.Article;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Set;
-
-public interface ArticleRepository {
-  void addArticle(Article article);
-  Set<Article> getNewArticlesForUser(User user);
+@Repository
+public interface ArticleRepository extends JpaRepository<Article, Long>, ArticleRepositoryCustom {
 }

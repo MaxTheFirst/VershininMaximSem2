@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -42,14 +43,19 @@ public class SecurityConfiguration {
           corsConfiguration.setAllowCredentials(true);
           return corsConfiguration;
         }))
+        // Настройка доступа к конечным точкам
         .authorizeHttpRequests(request -> request
-            .requestMatchers("/auth/**").permitAll()
+            // Разрешить доступ к API аутентификации
+            .requestMatchers("/api/auth/**").permitAll()  // Используем requestMatchers для точных путей
+            .requestMatchers("/swagger-ui/**", "/swagger-resources/*", "/v3/api-docs/**").permitAll()
             .anyRequest().authenticated())
-        .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+        .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authenticationProvider(authenticationProvider())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
     return http.build();
   }
+
 
   @Bean
   public PasswordEncoder passwordEncoder() {

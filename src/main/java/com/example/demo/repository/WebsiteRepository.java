@@ -1,12 +1,16 @@
 package com.example.demo.repository;
 
-import com.example.demo.domain.dto.model.User;
-import com.example.demo.domain.dto.model.Website;
 
-import java.util.Set;
+import com.example.demo.domain.model.User;
+import com.example.demo.domain.model.Website;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface WebsiteRepository {
-  Set<Website> getDefaultWebsite();
-  Set<Website> getUserWebsite(User user);
+  List<Website> getDefaultWebsite();
+  List<Website> getUserWebsite(User user);
+  Optional<Website> findById(Long id);
+  void chooseCategory(User user, Website website);
   Website createWebsite(Website website);
 }

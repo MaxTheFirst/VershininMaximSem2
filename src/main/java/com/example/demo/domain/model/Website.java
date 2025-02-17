@@ -1,4 +1,4 @@
-package com.example.demo.domain.dto.model;
+package com.example.demo.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;

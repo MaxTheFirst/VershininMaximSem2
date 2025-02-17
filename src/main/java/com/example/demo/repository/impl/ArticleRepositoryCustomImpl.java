@@ -1,30 +1,26 @@
-package com.example.demo.repository;
+package com.example.demo.repository.impl;
 
-import com.example.demo.domain.dto.model.Article;
-import com.example.demo.domain.dto.model.User;
+import com.example.demo.domain.model.Article;
+import com.example.demo.domain.model.User;
+import com.example.demo.repository.ArticleRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 @AllArgsConstructor
-public class ArticleRepositoryImpl implements ArticleRepository {
+public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
 
   private final EntityManager entityManager;
 
   @Override
-  public void addArticle(Article article) {
-    entityManager.persist(article);
-  }
+  public List<Article> getNewArticlesForUser(User user) {
+    List<Article> newArticles = new ArrayList<>();
 
-  @Override
-  public Set<Article> getNewArticlesForUser(User user) {
-    Set<Article> newArticles = new HashSet<>();
-    
     String queryStr = "SELECT uws.lastSentArticleDate, a " +
         "FROM UserWebsiteStatus uws " +
         "JOIN uws.website w " +
@@ -38,7 +34,7 @@ public class ArticleRepositoryImpl implements ArticleRepository {
     query.setParameter("user", user);
     query.setParameter("categories", user.getCategories());
     query.setParameter("websites", user.getWebsites());
-    
+
     var results = query.getResultList();
     for (Object result : results) {
       Article article = (Article) result;

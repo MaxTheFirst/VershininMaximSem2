@@ -1,13 +1,17 @@
 package com.example.demo.repository;
 
-import com.example.demo.domain.dto.model.Category;
-import com.example.demo.domain.dto.model.User;
 
-import java.util.Set;
+import com.example.demo.domain.model.Category;
+import com.example.demo.domain.model.User;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface CategoryRepository {
-  Set<Category> getAllCategory(); //все категории
-  Set<Category> getDefaultCategories(); //категории, где owner_id==null
-  Set<Category> getUserCategories(User user); //выбранные категории пользователя
-  void createCategory(Category category);
+  List<Category> getAllCategory(); //все категории
+  List<Category> getDefaultCategories(); //категории, где owner_id==null
+  List<Category> getUserCategories(User user); //выбранные категории пользователя
+  Optional<Category> findById(Long id);
+  void chooseCategory(User user, Category category);
+  Category createCategory(Category category);
 }

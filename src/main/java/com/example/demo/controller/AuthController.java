@@ -16,15 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-  private final AuthenticationService authenticationService;
+  private final AuthenticationService service;
 
   @PostMapping("/sign-up")
   public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody @Valid SignRequest request) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(authenticationService.signUp(request));
+    try {
+      return ResponseEntity.status(HttpStatus.CREATED).body(service.signUp(request));
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
   }
 
   @PostMapping("/sign-in")
   public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody @Valid SignRequest request) {
-    return ResponseEntity.ok(authenticationService.signIn(request));
+    return ResponseEntity.ok(service.signIn(request));
   }
 }

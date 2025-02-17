@@ -1,4 +1,4 @@
-package com.example.demo.domain.dto.model;
+package com.example.demo.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,10 +33,10 @@ public class Article {
   private String url;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "website_id", nullable = false) // Статья принадлежит сайту
+  @JoinColumn(name = "website_id", nullable = false)
   private Website website;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category_id", nullable = false) // Статья привязана к категории
+  @JoinColumn(name = "category_id", nullable = false)
   private Category category;
 }

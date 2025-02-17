@@ -1,3 +1,11 @@
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.boot.web.servlet: DEBUG
+    org.hibernate: INFO
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/recommendation_service_db
@@ -8,12 +16,11 @@ spring:
     hibernate:
       ddl-auto: update
     database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     properties:
       hibernate:
         format_sql: true
 
 jwt:
-  secret: super_secret_key
+  secret: 53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855
   expiration: 3600000

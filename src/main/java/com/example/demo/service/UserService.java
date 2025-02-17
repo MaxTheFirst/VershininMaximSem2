@@ -1,13 +1,15 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.model.User;
 import com.example.demo.exception.UserAlreadyExistsException;
 import com.example.demo.exception.UsernameNotFoundException;
-import com.example.demo.domain.dto.model.User;
 import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -15,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-  private UserRepository repository;
+  private final UserRepository repository;
 
   public User save(User user) {
     return repository.save(user);
@@ -32,7 +34,7 @@ public class UserService {
   public User getByUsername(String username) {
     Optional<User> user = repository.findByUsername(username);
     if (user.isEmpty()) {
-      throw new UsernameNotFoundException("User with this username not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with this username not found");
     }
     return user.get();
   }
