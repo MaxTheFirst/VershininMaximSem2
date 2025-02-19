@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.model.Article;
 import com.example.demo.domain.model.User;
-import com.example.demo.repository.ArticleRepository;
+import com.example.demo.repository.ArticlesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +10,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ArticleService {
+public class ArticlesService {
 
-  private final ArticleRepository repository;
-  private final UserService userService;
+  private final ArticlesRepository repository;
+  private final UsersService usersService;
 
   public List<Article> getNewArticles() {
-    User user = userService.getCurrentUser();
+    User user = usersService.getCurrentUser();
     return repository.getNewArticlesForUser(user);
   }
 }

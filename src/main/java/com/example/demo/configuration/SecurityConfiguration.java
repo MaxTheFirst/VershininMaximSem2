@@ -1,7 +1,7 @@
 package com.example.demo.configuration;
 
 import com.example.demo.filter.JwtAuthenticationFilter;
-import com.example.demo.service.UserService;
+import com.example.demo.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,15 +22,13 @@ import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.List;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
-  private final UserService userService;
+  private final UsersService usersService;
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -43,10 +41,8 @@ public class SecurityConfiguration {
           corsConfiguration.setAllowCredentials(true);
           return corsConfiguration;
         }))
-        // Настройка доступа к конечным точкам
         .authorizeHttpRequests(request -> request
-            // Разрешить доступ к API аутентификации
-            .requestMatchers("/api/auth/**").permitAll()  // Используем requestMatchers для точных путей
+            .requestMatchers("/api/auth/**").permitAll()
             .requestMatchers("/swagger-ui/**", "/swagger-resources/*", "/v3/api-docs/**").permitAll()
             .anyRequest().authenticated())
         .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -65,7 +61,7 @@ public class SecurityConfiguration {
   @Bean
   public AuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-    authProvider.setUserDetailsService(userService.userDetailsService());
+    authProvider.setUserDetailsService(usersService.userDetailsService());
     authProvider.setPasswordEncoder(passwordEncoder());
     return authProvider;
   }

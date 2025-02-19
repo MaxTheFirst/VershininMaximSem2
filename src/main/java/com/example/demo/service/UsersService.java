@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.domain.model.User;
 import com.example.demo.exception.UserAlreadyExistsException;
-import com.example.demo.exception.UsernameNotFoundException;
 import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UsersService {
 
   private final UserRepository repository;
 

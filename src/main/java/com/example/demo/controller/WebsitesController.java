@@ -1,19 +1,25 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.model.Website;
-import com.example.demo.service.WebsiteService;
+import com.example.demo.service.WebsitesService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/websites")
 @RequiredArgsConstructor
-public class WebsiteController {
+public class WebsitesController {
 
-  private final WebsiteService service;
+  private final WebsitesService service;
 
   @GetMapping("/default")
   public ResponseEntity<List<Website>> getDefaultWebsites() {

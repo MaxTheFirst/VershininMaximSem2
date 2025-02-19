@@ -20,12 +20,7 @@ public class AuthController {
 
   @PostMapping("/sign-up")
   public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody @Valid SignRequest request) {
-    try {
-      return ResponseEntity.status(HttpStatus.CREATED).body(service.signUp(request));
-    } catch (Exception e) {
-      e.printStackTrace();
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
+    return ResponseEntity.status(HttpStatus.CREATED).body(service.signUp(request));
   }
 
   @PostMapping("/sign-in")

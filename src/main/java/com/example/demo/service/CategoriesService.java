@@ -13,10 +13,10 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CategoryService {
+public class CategoriesService {
 
   private final CategoryRepository repository;
-  private final UserService userService;
+  private final UsersService usersService;
 
   public List<Category> getAllCategory(){
     return repository.getAllCategory();
@@ -27,7 +27,7 @@ public class CategoryService {
   }
 
   public List<Category> getUserCategories() {
-    User user = userService.getCurrentUser();
+    User user = usersService.getCurrentUser();
     return repository.getUserCategories(user);
   }
 
@@ -36,12 +36,12 @@ public class CategoryService {
     if (category.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with this ID not fount");
     }
-    User user = userService.getCurrentUser();
+    User user = usersService.getCurrentUser();
     repository.chooseCategory(user, category.get());
   }
 
   public Category createCategory(Category category) {
-    User user = userService.getCurrentUser();
+    User user = usersService.getCurrentUser();
     category.setOwner(user);
     return repository.createCategory(category);
   }

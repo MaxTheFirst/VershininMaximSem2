@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.model.Article;
-import com.example.demo.service.ArticleService;
+import com.example.demo.service.ArticlesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/articles")
 @RequiredArgsConstructor
-public class ArticleController {
+public class ArticlesController {
 
-  private final ArticleService service;
+  private final ArticlesService service;
 
   @GetMapping
   public ResponseEntity<List<Article>> getNewArticles() {

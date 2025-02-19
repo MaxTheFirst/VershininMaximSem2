@@ -4,7 +4,13 @@ logging:
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
     org.springframework.boot.web.servlet: DEBUG
+    org.apache: DEBUG
     org.hibernate: INFO
+
+server:
+  tomcat:
+    apr:
+      enabled: false
 
 spring:
   datasource:
@@ -14,7 +20,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     database: postgresql
     show-sql: true
     properties:
