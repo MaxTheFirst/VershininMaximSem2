@@ -35,6 +35,7 @@ public class CategoryRepositoryImp implements CategoryRepository {
   }
 
   @Override
+  @Transactional
   public void chooseCategory(User user, Category category) {
     user.getCategories().add(category);
     entityManager.merge(user);

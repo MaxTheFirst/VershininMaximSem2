@@ -30,6 +30,7 @@ public class WebsiteRepositoryImp implements WebsiteRepository {
   }
 
   @Override
+  @Transactional
   public void chooseCategory(User user, Website website) {
     user.getWebsites().add(website);
     entityManager.merge(user);

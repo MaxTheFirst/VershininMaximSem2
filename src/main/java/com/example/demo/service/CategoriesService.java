@@ -18,10 +18,6 @@ public class CategoriesService {
   private final CategoryRepository repository;
   private final UsersService usersService;
 
-  public List<Category> getAllCategory(){
-    return repository.getAllCategory();
-  }
-
   public List<Category> getDefaultCategories(){
     return repository.getDefaultCategories();
   }
