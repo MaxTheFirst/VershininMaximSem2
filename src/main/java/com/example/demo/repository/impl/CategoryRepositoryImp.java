@@ -19,17 +19,17 @@ public class CategoryRepositoryImp implements CategoryRepository {
 
   @Override
   public List<Category> getAllCategory() {
-    return entityManager.createQuery("SELECT c FROM Category c", Category.class).getResultList();
+    return entityManager.createQuery("SELECT category_id, name FROM categories", Category.class).getResultList();
   }
 
   @Override
   public List<Category> getDefaultCategories() {
-    return entityManager.createQuery("SELECT c FROM Category c WHERE c.owner IS NULL", Category.class).getResultList();
+    return entityManager.createQuery("SELECT category_id, name FROM categories c WHERE c.owner IS NULL", Category.class).getResultList();
   }
 
   @Override
   public List<Category> getUserCategories(User user) {
-    return entityManager.createQuery("SELECT c FROM Category c JOIN c.users u WHERE u = :user", Category.class)
+    return entityManager.createQuery("SELECT category_id, name FROM categories c JOIN c.users u WHERE u = :user", Category.class)
         .setParameter("user", user)
         .getResultList();
   }

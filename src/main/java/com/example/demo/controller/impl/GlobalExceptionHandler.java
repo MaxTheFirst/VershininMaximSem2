@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.impl;
 
 import com.example.demo.exception.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;

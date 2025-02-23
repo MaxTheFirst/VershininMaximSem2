@@ -1,5 +1,6 @@
-package com.example.demo.controller;
+package com.example.demo.controller.impl;
 
+import com.example.demo.controller.WebsitesOperations;
 import com.example.demo.domain.dto.request.IdRequest;
 import com.example.demo.domain.model.Website;
 import com.example.demo.service.WebsitesService;
@@ -17,29 +18,28 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/websites")
 @RequiredArgsConstructor
-public class WebsitesController {
+public class WebsitesController implements WebsitesOperations {
 
   private final WebsitesService service;
 
-  @GetMapping()
+  @Override
   public ResponseEntity<List<Website>> getDefaultWebsites() {
     return ResponseEntity.ok(service.getDefaultWebsites());
   }
 
-  @GetMapping("/my")
+  @Override
   public ResponseEntity<List<Website>> getUserWebsites() {
     return ResponseEntity.ok(service.getUserWebsites());
   }
 
-  @PostMapping()
-  public ResponseEntity<Website> createWebsite(@RequestBody @Valid Website website) {
+  @Override
+  public ResponseEntity<Website> createWebsite(@Valid Website website) {
     return ResponseEntity.status(HttpStatus.CREATED).body(service.createWebsite(website));
   }
 
-  @PutMapping()
-  public ResponseEntity<Void> chooseWebsite(@RequestBody @Valid IdRequest idRequest) {
+  @Override
+  public ResponseEntity<Void> chooseWebsite(@Valid IdRequest idRequest) {
     service.chooseWebsite(idRequest.getId());
     return ResponseEntity.ok().build();
   }

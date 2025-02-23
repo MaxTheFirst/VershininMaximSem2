@@ -1,5 +1,6 @@
-package com.example.demo.controller;
+package com.example.demo.controller.impl;
 
+import com.example.demo.controller.CategoriesOperations;
 import com.example.demo.domain.dto.request.IdRequest;
 import com.example.demo.domain.model.Category;
 import com.example.demo.service.CategoriesService;
@@ -17,29 +18,28 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories")
 @RequiredArgsConstructor
-public class CategoriesController {
+public class CategoriesController implements CategoriesOperations {
 
   private final CategoriesService service;
 
-  @GetMapping
+  @Override
   public ResponseEntity<List<Category>> getDefaultCategories() {
     return ResponseEntity.ok(service.getDefaultCategories());
   }
 
-  @GetMapping("/my")
+  @Override
   public ResponseEntity<List<Category>> getUserCategories() {
     return ResponseEntity.ok(service.getUserCategories());
   }
 
-  @PostMapping()
-  public ResponseEntity<Category> createCategory(@RequestBody @Valid Category category) {
+  @Override
+  public ResponseEntity<Category> createCategory(@Valid Category category) {
     return ResponseEntity.status(HttpStatus.CREATED).body(service.createCategory(category));
   }
 
-  @PutMapping
-  public ResponseEntity<Void> chooseCategory(@RequestBody @Valid IdRequest idRequest) {
+  @Override
+  public ResponseEntity<Void> chooseCategory(@Valid IdRequest idRequest) {
     service.chooseCategory(idRequest.getId());
     return ResponseEntity.ok().build();
   }
