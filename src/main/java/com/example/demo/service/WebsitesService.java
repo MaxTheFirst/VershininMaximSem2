@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.dto.response.WebsiteResponse;
 import com.example.demo.domain.model.User;
 import com.example.demo.domain.model.Website;
 import com.example.demo.repository.WebsiteRepository;
@@ -10,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,13 +20,19 @@ public class WebsitesService {
   private final WebsiteRepository repository;
   private final UsersService usersService;
 
-  public List<Website> getDefaultWebsites() {
-    return repository.getDefaultWebsite();
+  public List<WebsiteResponse> getDefaultWebsites() {
+    List<Website> websites = repository.getDefaultWebsites();
+    return websites.stream()
+        .map(website -> new WebsiteResponse(website.getId(), website.getName(), website.getUrl()))
+        .collect(Collectors.toList());
   }
 
-  public List<Website> getUserWebsites() {
+  public List<WebsiteResponse> getUserWebsites() {
     User user = usersService.getCurrentUser();
-    return repository.getUserWebsite(user);
+    List<Website> websites = repository.getUserWebsites(user);
+    return websites.stream()
+        .map(website -> new WebsiteResponse(website.getId(), website.getName(), website.getUrl()))
+        .collect(Collectors.toList());
   }
 
   public void chooseWebsite(Long websiteId) {
@@ -45,9 +53,10 @@ public class WebsitesService {
     repository.removeWebsite(user, website.get());
   }
 
-  public Website createWebsite(Website website) {
+  public WebsiteResponse createWebsite(Website website) {
     User user = usersService.getCurrentUser();
     website.setOwner(user);
-    return repository.createWebsite(website);
+    Website savedWebsite = repository.createWebsite(website);
+    return new WebsiteResponse(savedWebsite.getId(), savedWebsite.getName(), savedWebsite.getUrl());
   }
 }

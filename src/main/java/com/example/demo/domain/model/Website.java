@@ -36,6 +36,6 @@ public class Website {
   private Set<User> users = new HashSet<>();
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "owner_id")
+  @JoinColumn(name = "owner_id", nullable = true)
   private User owner;
 }

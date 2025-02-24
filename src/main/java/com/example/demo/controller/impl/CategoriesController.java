@@ -1,7 +1,7 @@
 package com.example.demo.controller.impl;
 
 import com.example.demo.controller.CategoriesOperations;
-import com.example.demo.domain.dto.request.IdRequest;
+import com.example.demo.domain.dto.response.CategoryResponse;
 import com.example.demo.domain.model.Category;
 import com.example.demo.service.CategoriesService;
 import jakarta.validation.Valid;
@@ -19,17 +19,17 @@ public class CategoriesController implements CategoriesOperations {
   private final CategoriesService service;
 
   @Override
-  public ResponseEntity<List<Category>> getDefaultCategories() {
+  public ResponseEntity<List<CategoryResponse>> getDefaultCategories() {
     return ResponseEntity.ok(service.getDefaultCategories());
   }
 
   @Override
-  public ResponseEntity<List<Category>> getUserCategories() {
+  public ResponseEntity<List<CategoryResponse>> getUserCategories() {
     return ResponseEntity.ok(service.getUserCategories());
   }
 
   @Override
-  public ResponseEntity<Category> createCategory(@Valid Category category) {
+  public ResponseEntity<CategoryResponse> createCategory(@Valid Category category) {
     return ResponseEntity.status(HttpStatus.CREATED).body(service.createCategory(category));
   }
 

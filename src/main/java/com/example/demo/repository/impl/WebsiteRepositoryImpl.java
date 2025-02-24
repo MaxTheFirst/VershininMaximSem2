@@ -18,12 +18,12 @@ public class WebsiteRepositoryImpl implements WebsiteRepository {
   private final EntityManager entityManager;
 
   @Override
-  public List<Website> getDefaultWebsite() {
+  public List<Website> getDefaultWebsites() {
     return entityManager.createQuery("SELECT w FROM Website w WHERE w.owner IS NULL", Website.class).getResultList();
   }
 
   @Override
-  public List<Website> getUserWebsite(User user) {
+  public List<Website> getUserWebsites(User user) {
     return entityManager.createQuery("SELECT w FROM Website w JOIN w.users u WHERE u = :user", Website.class)
         .setParameter("user", user)
         .getResultList();

@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.dto.request.IdRequest;
+import com.example.demo.domain.dto.response.WebsiteResponse;
 import com.example.demo.domain.model.Website;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,17 +18,17 @@ public interface WebsitesOperations {
   @Operation(summary = "Получить стандартные веб-сайты")
   @ApiResponse(responseCode = "200", description = "Список стандартных сайтов")
   @GetMapping
-  ResponseEntity<List<Website>> getDefaultWebsites();
+  ResponseEntity<List<WebsiteResponse>> getDefaultWebsites();
 
   @Operation(summary = "Получить пользовательские веб-сайты")
   @ApiResponse(responseCode = "200", description = "Список сайтов пользователя")
   @GetMapping("/my")
-  ResponseEntity<List<Website>> getUserWebsites();
+  ResponseEntity<List<WebsiteResponse>> getUserWebsites();
 
   @Operation(summary = "Создать веб-сайт")
   @ApiResponse(responseCode = "201", description = "Веб-сайт создан")
   @PostMapping
-  ResponseEntity<Website> createWebsite(@RequestBody @Valid Website website);
+  ResponseEntity<WebsiteResponse> createWebsite(@RequestBody @Valid Website website);
 
   @Operation(summary = "Выбрать веб-сайт")
   @ApiResponse(responseCode = "200", description = "Веб-сайт выбран")
