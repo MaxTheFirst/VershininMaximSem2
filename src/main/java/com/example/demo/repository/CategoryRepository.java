@@ -13,5 +13,6 @@ public interface CategoryRepository {
   List<Category> getUserCategories(User user); //выбранные категории пользователя
   Optional<Category> findById(Long id);
   void chooseCategory(User user, Category category);
+  void removeCategory(User user, Category category);
   Category createCategory(Category category);
 }

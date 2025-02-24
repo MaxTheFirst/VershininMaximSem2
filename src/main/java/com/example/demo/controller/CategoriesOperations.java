@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.domain.dto.request.IdRequest;
 import com.example.demo.domain.model.Category;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,7 +32,17 @@ public interface CategoriesOperations {
 
   @Operation(summary = "Выбрать категорию")
   @ApiResponse(responseCode = "200", description = "Категория выбрана")
-  @PutMapping
-  ResponseEntity<Void> chooseCategory(@RequestBody @Valid IdRequest idRequest);
+  @PutMapping("/{categoryId}")
+  ResponseEntity<Void> chooseCategory(@PathVariable Long categoryId);
+
+  @Operation(summary = "Отмена выбора категории")
+  @ApiResponse(responseCode = "200", description = "Выбор отменен")
+  @DeleteMapping("/{categoryId}")
+  ResponseEntity<Void> removeCategory(@PathVariable Long categoryId);
+
+  @Operation(summary = "Редактирование процента категории")
+  @ApiResponse(responseCode = "200", description = "Изменение сохранено")
+  @PatchMapping("/{categoryId}")
+  ResponseEntity<Void> editCategoryPercent(@PathVariable Long categoryId);
 }
 

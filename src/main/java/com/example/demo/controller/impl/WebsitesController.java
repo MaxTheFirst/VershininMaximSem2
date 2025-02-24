@@ -39,8 +39,20 @@ public class WebsitesController implements WebsitesOperations {
   }
 
   @Override
-  public ResponseEntity<Void> chooseWebsite(@Valid IdRequest idRequest) {
-    service.chooseWebsite(idRequest.getId());
+  public ResponseEntity<Void> chooseWebsite(Long websiteId) {
+    service.chooseWebsite(websiteId);
+    return ResponseEntity.ok().build();
+  }
+
+  @Override
+  public ResponseEntity<Void> removeWebsite(Long websiteId) {
+    service.removeWebsite(websiteId);
+    return ResponseEntity.ok().build();
+  }
+
+  @Override
+  public ResponseEntity<Void> editWebsitePercent(Long websiteId) {
+    //todo
     return ResponseEntity.ok().build();
   }
 }

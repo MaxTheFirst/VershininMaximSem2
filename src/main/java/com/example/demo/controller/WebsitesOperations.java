@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import java.util.List;
 
-@Tag(name = "Websites API", description = "Управление веб-сайтами")
+@Tag(name = "Websites operations", description = "Управление веб-сайтами")
 @RequestMapping("/api/websites")
 public interface WebsitesOperations {
 
@@ -32,6 +32,16 @@ public interface WebsitesOperations {
 
   @Operation(summary = "Выбрать веб-сайт")
   @ApiResponse(responseCode = "200", description = "Веб-сайт выбран")
-  @PutMapping
-  ResponseEntity<Void> chooseWebsite(@RequestBody @Valid IdRequest idRequest);
+  @PutMapping("/{websiteId}")
+  ResponseEntity<Void> chooseWebsite(@PathVariable Long websiteId);
+
+  @Operation(summary = "Отмена выбора веб-сайта")
+  @ApiResponse(responseCode = "200", description = "Выбор отменен")
+  @DeleteMapping("/{websiteId}")
+  ResponseEntity<Void> removeWebsite(@PathVariable Long websiteId);
+
+  @Operation(summary = "Редактирование процента веб-сайта")
+  @ApiResponse(responseCode = "200", description = "Изменение сохранено")
+  @PatchMapping("/{websiteId}")
+  ResponseEntity<Void> editWebsitePercent(@PathVariable Long websiteId);
 }

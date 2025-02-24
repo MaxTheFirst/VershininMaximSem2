@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class WebsiteRepositoryImp implements WebsiteRepository {
+public class WebsiteRepositoryImpl implements WebsiteRepository {
 
   private final EntityManager entityManager;
 
@@ -31,8 +31,15 @@ public class WebsiteRepositoryImp implements WebsiteRepository {
 
   @Override
   @Transactional
-  public void chooseCategory(User user, Website website) {
+  public void chooseWebsite(User user, Website website) {
     user.getWebsites().add(website);
+    entityManager.merge(user);
+  }
+
+  @Override
+  @Transactional
+  public void removeWebsite(User user, Website website) {
+    user.getWebsites().remove(website);
     entityManager.merge(user);
   }
 

@@ -8,11 +8,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -39,8 +34,20 @@ public class CategoriesController implements CategoriesOperations {
   }
 
   @Override
-  public ResponseEntity<Void> chooseCategory(@Valid IdRequest idRequest) {
-    service.chooseCategory(idRequest.getId());
+  public ResponseEntity<Void> chooseCategory(Long categoryId) {
+    service.chooseCategory(categoryId);
+    return ResponseEntity.ok().build();
+  }
+
+  @Override
+  public ResponseEntity<Void> removeCategory(Long categoryId) {
+    service.removeCategory(categoryId);
+    return ResponseEntity.ok().build();
+  }
+
+  @Override
+  public ResponseEntity<Void> editCategoryPercent(Long categoryId) {
+    //todo
     return ResponseEntity.ok().build();
   }
 }

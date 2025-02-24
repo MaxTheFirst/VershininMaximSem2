@@ -4,6 +4,7 @@ import com.example.demo.domain.model.Category;
 import com.example.demo.domain.model.User;
 import com.example.demo.repository.CategoryRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,23 +14,25 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class CategoryRepositoryImp implements CategoryRepository {
+public class CategoryRepositoryImpl implements CategoryRepository {
 
+  @PersistenceContext
   private final EntityManager entityManager;
 
   @Override
   public List<Category> getAllCategory() {
-    return entityManager.createQuery("SELECT category_id, name FROM categories", Category.class).getResultList();
+    return entityManager.createQuery("SELECT c FROM Category c", Category.class).getResultList();
   }
 
   @Override
   public List<Category> getDefaultCategories() {
-    return entityManager.createQuery("SELECT category_id, name FROM categories c WHERE c.owner IS NULL", Category.class).getResultList();
+    return entityManager.createQuery("SELECT c FROM Category c WHERE c.owner IS NULL", Category.class).getResultList();
   }
 
   @Override
   public List<Category> getUserCategories(User user) {
-    return entityManager.createQuery("SELECT category_id, name FROM categories c JOIN c.users u WHERE u = :user", Category.class)
+    return entityManager.createQuery(
+            "SELECT c FROM Category c JOIN c.users u WHERE u = :user", Category.class)
         .setParameter("user", user)
         .getResultList();
   }
@@ -38,6 +41,13 @@ public class CategoryRepositoryImp implements CategoryRepository {
   @Transactional
   public void chooseCategory(User user, Category category) {
     user.getCategories().add(category);
+    entityManager.merge(user);
+  }
+
+  @Override
+  @Transactional
+  public void removeCategory(User user, Category category) {
+    user.getCategories().remove(category);
     entityManager.merge(user);
   }
 

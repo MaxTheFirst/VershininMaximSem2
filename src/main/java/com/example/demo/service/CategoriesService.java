@@ -36,6 +36,15 @@ public class CategoriesService {
     repository.chooseCategory(user, category.get());
   }
 
+  public void removeCategory(Long categoryId) {
+    Optional<Category> category = repository.findById(categoryId);
+    if (category.isEmpty()) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with this ID not fount");
+    }
+    User user = usersService.getCurrentUser();
+    repository.removeCategory(user, category.get());
+  }
+
   public Category createCategory(Category category) {
     User user = usersService.getCurrentUser();
     category.setOwner(user);

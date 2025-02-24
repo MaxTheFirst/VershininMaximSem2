@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@Tag(name = "Authentication API", description = "Авторизация и регистрация")
+@Tag(name = "Authentication operations", description = "Авторизация и регистрация")
 @RequestMapping("/api/auth")
 public interface AuthOperations {
 

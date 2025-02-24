@@ -33,7 +33,16 @@ public class WebsitesService {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Website with this ID not found");
     }
     User user = usersService.getCurrentUser();
-    repository.chooseCategory(user, website.get());
+    repository.chooseWebsite(user, website.get());
+  }
+
+  public void removeWebsite(Long websiteId) {
+    Optional<Website> website = repository.findById(websiteId);
+    if (website.isEmpty()) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Website with this ID not found");
+    }
+    User user = usersService.getCurrentUser();
+    repository.removeWebsite(user, website.get());
   }
 
   public Website createWebsite(Website website) {
