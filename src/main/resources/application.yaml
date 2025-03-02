@@ -1,12 +1,3 @@
-logging:
-  level:
-    root: INFO
-    org.springframework.web: INFO
-    org.springframework.security: DEBUG
-    org.springframework.boot.web.servlet: INFO
-    org.apache: INFO
-    org.hibernate: INFO
-
 server:
   tomcat:
     apr:
@@ -30,6 +21,8 @@ spring:
   sql:
     init:
       mode: always
+  aop:
+    auto: true
 
 jwt:
   secret: 53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855
