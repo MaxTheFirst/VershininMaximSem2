@@ -2,9 +2,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -20,4 +20,4 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Tests with Maven
-        run: mvn clean test
+        run: mvn clean install
