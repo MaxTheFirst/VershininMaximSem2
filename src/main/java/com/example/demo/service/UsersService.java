@@ -26,7 +26,6 @@ public class UsersService {
     if (repository.existsByUsername(user.getUsername())) {
       throw new UserAlreadyExistsException("User with this username is already exists");
     }
-
     return save(user);
   }
 
@@ -35,6 +34,7 @@ public class UsersService {
     if (user.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with this username not found");
     }
+
     return user.get();
   }
 

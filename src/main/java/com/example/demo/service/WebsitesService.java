@@ -5,6 +5,7 @@ import com.example.demo.domain.model.User;
 import com.example.demo.domain.model.Website;
 import com.example.demo.repository.WebsiteRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,6 +21,7 @@ public class WebsitesService {
   private final WebsiteRepository repository;
   private final UsersService usersService;
 
+    @Cacheable("websites")
   public List<WebsiteResponse> getDefaultWebsites() {
     List<Website> websites = repository.getDefaultWebsites();
     return websites.stream()

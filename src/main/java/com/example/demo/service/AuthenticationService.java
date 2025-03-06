@@ -4,6 +4,8 @@ import com.example.demo.domain.dto.request.SignRequest;
 import com.example.demo.domain.dto.response.JwtAuthenticationResponse;
 import com.example.demo.domain.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,8 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManager authenticationManager;
 
+    //At least once
+    @Retryable(retryFor = Exception.class, maxAttempts = 5, backoff = @Backoff(delay = 10000))
   public JwtAuthenticationResponse signUp(SignRequest request) {
 
     var user = User.builder()

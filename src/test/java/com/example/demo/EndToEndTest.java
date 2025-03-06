@@ -67,12 +67,13 @@ public class EndToEndTest {
 
         CategoryResponse chosenCategory = categoriesResponse.getBody()[0];
 
-        restTemplate.exchange(
+        ResponseEntity<Void> chooseCategoryResponse = restTemplate.exchange(
                 getAllUrl("/api/categories/" + chosenCategory.getId()),
                 HttpMethod.PUT,
                 new HttpEntity<>(headers),
                 Void.class
         );
+        assertEquals(200, chooseCategoryResponse.getStatusCode().value());
 
         ResponseEntity<WebsiteResponse[]> websitesResponse = restTemplate.exchange(
                 getAllUrl("/api/websites"),
@@ -83,12 +84,13 @@ public class EndToEndTest {
         assertEquals(200, websitesResponse.getStatusCode().value());
         WebsiteResponse chosenWebsite = websitesResponse.getBody()[0];
 
-        restTemplate.exchange(
+        ResponseEntity<Void> chooseWebsiteResponse = restTemplate.exchange(
                 getAllUrl("/api/websites/" + chosenWebsite.getId()),
                 HttpMethod.PUT,
                 new HttpEntity<>(headers),
                 Void.class
         );
+        assertEquals(200, chooseWebsiteResponse.getStatusCode().value());
 
         ResponseEntity<CategoryResponse[]> userCategoriesResponse = restTemplate.exchange(
                 getAllUrl("/api/categories/my"),
