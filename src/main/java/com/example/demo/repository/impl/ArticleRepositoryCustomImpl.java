@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
   private final EntityManager entityManager;
 
   @Override
+  @Transactional(readOnly = true)
   public List<Article> getNewArticlesForUser(User user) {
     List<Article> newArticles = new ArrayList<>();
 
@@ -28,7 +30,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         "JOIN a.website ws " +
         "WHERE uws.user = :user " +
         "AND (uws.lastSentArticleDate IS NULL OR a.date > uws.lastSentArticleDate) " +
-        "AND (c IN :categories OR ws IN :websites)";
+        "AND (c IN :categories AND ws IN :websites)";
 
     Query query = entityManager.createQuery(queryStr, Object[].class);
     query.setParameter("user", user);

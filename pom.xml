@@ -103,6 +103,10 @@
             <artifactId>resilience4j-circuitbreaker</artifactId>
             <version>1.7.1</version>
         </dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
 
 		<!-- Безопасность -->
 		<dependency>
