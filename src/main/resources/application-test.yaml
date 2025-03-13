@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:15:///testdb
+    username: test
+    password: test
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  jpa:
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.PostgresSQLDialect
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+jwt:
+  secret: 53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855
+  expiration: 3600000
+
+resilience4j:
+  ratelimiter:
+    instances:
+      apiRateLimiter:
+        limit-for-period: 5
+        limit-refresh-period: 10s
+        timeout-duration: 0
+  circuitbreaker:
+    instances:
+      apiCircuitBreaker:
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-type: count_based
+        sliding-window-size: 10
