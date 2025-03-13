@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -22,6 +23,7 @@ public class UsersService {
     return repository.save(user);
   }
 
+  @Transactional
   public User create(User user) {
     if (repository.existsByUsername(user.getUsername())) {
       throw new UserAlreadyExistsException("User with this username is already exists");
@@ -29,6 +31,7 @@ public class UsersService {
     return save(user);
   }
 
+  @Transactional(readOnly = true)
   public User getByUsername(String username) {
     Optional<User> user = repository.findByUsername(username);
     if (user.isEmpty()) {
