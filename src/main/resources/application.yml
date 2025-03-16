@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:cassandra://localhost:9042/my_keyspace
+    username: cassandra
+    password: cassandra
+    driver-class-name: com.datastax.oss.driver.api.core.CqlSession
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    placeholders:
+      keyspace: my_keyspace
+
+cassandra:
+  contact-points: localhost:9042
+  keyspace-name: my_keyspace
+  schema-action: CREATE_IF_NOT_EXISTS
+  port: 9042
+  username: cassandra
+  password: cassandra
