@@ -20,8 +20,6 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManager authenticationManager;
 
-    //At least once
-    @Retryable(retryFor = Exception.class, maxAttempts = 5, backoff = @Backoff(delay = 10000))
   public JwtAuthenticationResponse signUp(SignRequest request) {
 
     var user = User.builder()

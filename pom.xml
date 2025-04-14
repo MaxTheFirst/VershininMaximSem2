@@ -113,6 +113,10 @@
             <artifactId>resilience4j-circuitbreaker</artifactId>
             <version>1.7.1</version>
         </dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
 
 		<!-- Безопасность -->
 		<dependency>

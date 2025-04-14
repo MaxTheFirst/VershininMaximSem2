@@ -17,15 +17,15 @@ public class LoggingAspect {
 
     public static int count = 0;
 
-    @Before("execution(* com.example.demo.controller.impl..*(..))")
+  @Before("execution(* com.example.demo.controller.impl..*(..))")
   public void logBefore(JoinPoint joinPoint){
-        ++count;
+    ++count;
     log.debug("{} will de calling", joinPoint.getSignature().getName());
   }
 
-    @Around("execution(* com.example.demo.controller.impl..*(..))")
+  @Around("execution(* com.example.demo.controller.impl..*(..))")
   public Object measureExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
-        ++count;
+    ++count;
     Instant start = Instant.now();
     Object result = joinPoint.proceed();
     long duration = Instant.now().toEpochMilli() - start.toEpochMilli();

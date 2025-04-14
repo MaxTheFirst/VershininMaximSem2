@@ -18,15 +18,8 @@ public class ArticlesService {
   private final ArticlesRepository repository;
   private final UsersService usersService;
 
-    @Async
   public List<Article> getNewArticles() {
     User user = usersService.getCurrentUser();
-        CompletableFuture<List<Article>> future = new CompletableFuture<>();
-        future.complete(repository.getNewArticlesForUser(user));
-        try {
-            return future.get();
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
+    return repository.getNewArticlesForUser(user);
   }
 }
