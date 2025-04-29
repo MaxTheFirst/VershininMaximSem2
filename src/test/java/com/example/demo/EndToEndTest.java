@@ -1,6 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.configuration.TestContainersConfig;
+import com.example.demo.configuration.ObjectMapperTestConfig;
+import com.example.demo.configuration.TestContainersPostgresConfig;
 import com.example.demo.domain.dto.request.SignRequest;
 import com.example.demo.domain.dto.response.CategoryResponse;
 import com.example.demo.domain.dto.response.JwtAuthenticationResponse;
@@ -9,9 +10,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,13 +23,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
+import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Import(TestContainersConfig.class)
+@Import({TestContainersPostgresConfig.class, KafkaAutoConfiguration.class, ObjectMapperTestConfig.class})
+@Testcontainers
 @ActiveProfiles("test")
 public class EndToEndTest {
 
@@ -34,6 +42,10 @@ public class EndToEndTest {
 
     @LocalServerPort
     private int port;
+
+    @Container
+    @ServiceConnection
+    public static final KafkaContainer KAFKA = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.4.0"));
 
     @Autowired
     private TestRestTemplate restTemplate;

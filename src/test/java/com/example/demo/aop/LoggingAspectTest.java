@@ -1,6 +1,6 @@
 package com.example.demo.aop;
 
-import com.example.demo.configuration.TestContainersConfig;
+import com.example.demo.configuration.TestContainersPostgresConfig;
 import com.example.demo.domain.dto.request.SignRequest;
 import com.example.demo.domain.dto.response.JwtAuthenticationResponse;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Import(TestContainersConfig.class)
+@Import(TestContainersPostgresConfig.class)
 @ActiveProfiles("test")
 class LoggingAspectTest {
     @LocalServerPort

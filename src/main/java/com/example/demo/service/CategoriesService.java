@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.aop.audit.Action;
+import com.example.demo.aop.audit.SendAudit;
 import com.example.demo.domain.dto.response.CategoryResponse;
 import com.example.demo.domain.model.Category;
 import com.example.demo.domain.model.User;
@@ -21,6 +23,7 @@ public class CategoriesService {
   private final CategoryRepository repository;
   private final UsersService usersService;
 
+  @SendAudit(action = Action.SELECT)
   public List<CategoryResponse> getDefaultCategories() {
     List<Category> categories = repository.findByOwnerIsNull();
     return categories.stream()
@@ -28,6 +31,7 @@ public class CategoriesService {
         .collect(Collectors.toList());
   }
 
+  @SendAudit(action = Action.SELECT)
   @Transactional(readOnly = true)
   public List<CategoryResponse> getUserCategories() {
     User user = usersService.getCurrentUser();
@@ -37,6 +41,7 @@ public class CategoriesService {
         .collect(Collectors.toList());
   }
 
+  @SendAudit(action = Action.SELECT)
   @Transactional
   public void chooseCategory(Long categoryId) {
     Optional<Category> category = repository.findById(categoryId);
@@ -48,6 +53,7 @@ public class CategoriesService {
     usersService.save(user);
   }
 
+  @SendAudit(action = Action.DELETE)
   @Transactional
   public void removeCategory(Long categoryId) {
     User user = usersService.getCurrentUser();
@@ -59,6 +65,7 @@ public class CategoriesService {
     usersService.save(user);
   }
 
+  @SendAudit(action = Action.INSERT)
   public CategoryResponse createCategory(Category category) {
     User user = usersService.getCurrentUser();
     category.setOwner(user);

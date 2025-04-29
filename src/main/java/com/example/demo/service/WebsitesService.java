@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.aop.audit.Action;
+import com.example.demo.aop.audit.SendAudit;
 import com.example.demo.domain.dto.response.WebsiteResponse;
 import com.example.demo.domain.model.User;
 import com.example.demo.domain.model.Website;
@@ -21,6 +23,7 @@ public class WebsitesService {
   private final WebsiteRepository repository;
   private final UsersService usersService;
 
+  @SendAudit(action = Action.SELECT)
   @Transactional(readOnly = true)
   public List<WebsiteResponse> getDefaultWebsites() {
     List<Website> websites = repository.findByOwnerIsNull();
@@ -29,6 +32,7 @@ public class WebsitesService {
         .collect(Collectors.toList());
   }
 
+  @SendAudit(action = Action.SELECT)
   @Transactional(readOnly = true)
   public List<WebsiteResponse> getUserWebsites() {
     User user = usersService.getCurrentUser();
@@ -38,6 +42,7 @@ public class WebsitesService {
         .collect(Collectors.toList());
   }
 
+  @SendAudit(action = Action.SELECT)
   @Transactional
   public void chooseWebsite(Long websiteId) {
     Optional<Website> website = repository.findById(websiteId);
@@ -49,6 +54,7 @@ public class WebsitesService {
     usersService.save(user);
   }
 
+  @SendAudit(action = Action.DELETE)
   @Transactional
   public void removeWebsite(Long websiteId) {
     User user = usersService.getCurrentUser();
@@ -60,6 +66,7 @@ public class WebsitesService {
     usersService.save(user);
   }
 
+  @SendAudit(action = Action.SELECT)
   @Transactional
   public WebsiteResponse createWebsite(Website website) {
     User user = usersService.getCurrentUser();
