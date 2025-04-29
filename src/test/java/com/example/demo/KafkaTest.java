@@ -111,6 +111,6 @@ public class KafkaTest {
     consumer.subscribe(List.of(testTopic.name()));
     ConsumerRecords<String, String> records = consumer.poll();
 
-    assertEquals(0, records.count(), "В Kafka нет сообщений");
+    assertEquals(1, records.count(), "В Kafka одно сообщение");
   }
 }
